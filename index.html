@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sorting Algorithm Visualization</title>
+	<script type="text/javascript" src="src/Main.js"></script>
+	<script type="text/javascript" src="src/Bars.js"></script>
+	<script type="text/javascript" src="src/ArrayList.js"></script>
+	<script type="text/javascript" src="src/Node.js"></script>
+	<link rel="stylesheet" href="stylesheets\styles.css">
+	<link rel="stylesheet" href="stylesheets\slider.css">
+</head>
+<body onload="onLoadArray(300)">
+
+	<button onclick="iSort()">Insertion Sort</button>
+	<button onclick="bSort()">Bubble Sort</button>
+	<button onclick="qSort()">Quick Sort</button>
+
+	<div class="sliderContainer" id="sliderContainer"> 
+		<input type="range" min="100" max="500" value="300" class="slider" id="slider" oninput="getSliderValue()">
+		<div class="sliderValueBox"><div class="sliderValue" id="sliderValue">300</div></div>
+	</div>
+
+	<div class="flexbox" id="flexContainer"></div>
+	
+</body>
+</html>
