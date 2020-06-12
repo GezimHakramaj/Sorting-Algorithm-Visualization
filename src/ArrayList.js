@@ -34,7 +34,6 @@ class ArrayList extends Array{ // Creating an ArrayList object to contain Array'
 			var j = Math.floor(Math.random() * i);
 			this.swap(i, j);
 		}
-		console.log(arr);
 	}
 
 	/*
@@ -48,6 +47,8 @@ class ArrayList extends Array{ // Creating an ArrayList object to contain Array'
 		this[i].setBarHeight();
 		this[j].setBarHeight();
 	}
+
+
 }
 
 var arr = new ArrayList(); // Creating a new global ArrayList object.
