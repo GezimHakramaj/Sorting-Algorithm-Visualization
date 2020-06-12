@@ -18,8 +18,11 @@ class Node{ // Node object will store a value, a reference to the div element, a
 		this.bar.style.height = ((this.value)/(arr.size()*0.01))+"%";
 	}
 
-
-
-
-
+	/* 
+		This method changes nodes i and j's color to blue meaning they are being compared and then we will call setSorted to check if the 
+		node is sorted. Changing it's color back to white for not sorted or orange for sorted.
+    */
+	setBarColor(color){
+		this.bar.style.backgroundColor = color;
+	}
 }

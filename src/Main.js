@@ -1,6 +1,6 @@
 function onLoadArray(num){ // Method which gets called on window load to generate an array to populate the container div
 	arr.generateArrayList(num);
-	console.log(arr);
+	console.log(arr[-1]);
 }
 
 /*
@@ -14,6 +14,19 @@ function getSliderValue(){
 	arr.generateArrayList(slider);
 	arr.randomize();
 }
+
+function iSort(){
+	insertionSort(arr);
+}
+
+function bSort(){
+	bubbleSort(arr);
+}
+
+function qSort(){
+	quickSort(arr, 0, arr.size()-1);
+}
+
 
 
 
