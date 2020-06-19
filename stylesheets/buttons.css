@@ -1,0 +1,92 @@
+.button{
+	color: white;
+}
+
+.button, .buttonDisabled{
+	padding-left: 10px;
+	padding-right: 10px;
+	height: auto;
+	width: auto;
+	background-color: transparent;
+	font-size: .75vw;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	border-radius: 10px;
+	box-shadow: 0 -10px 15px rgba(255, 255, 255, 0.1),
+				inset 0 -10px 15px rgba(255, 255, 255, 0.1),
+				0 15px 15px rgba(0, 0, 0, 0.5),
+				inset 0 15px 15px rgba(0, 0, 0, 0.5);
+}
+
+.buttonDisabled{
+	cursor: auto;
+}
+
+.button:hover{
+	color: orange;
+	box-shadow: 0px 2px 15px rgba(255, 255, 255, 0.1),
+				0px -2px 15px rgba(255, 255, 255, 0.1);
+}
+
+
+.speedGroup{
+	position: relative;
+	top: .5vmin;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 14vmin;
+}
+
+.speedButtons{
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	-webkit-appearance: none;
+	border: 3px solid #282B29;
+	border-radius: 50%;
+	height: 4vmin;
+	width: 4vmin;
+	outline: none;
+	cursor: pointer;
+	box-shadow: -5px -15px 15px rgba(255, 255, 255, 0.1),
+				5px 10px 15px rgba(0, 0, 0, 0.5);
+}
+
+.speedButtons::before{
+	position: absolute;
+	font-family: FontAwesome;
+	color: gray;
+	font-size: 1.5vmin;
+}
+
+.speedButtons:nth-child(1)::before{
+	content: '\f104';
+	right: 50%;
+	transform: translate(50%);
+}
+
+.speedButtons:nth-child(2)::before{
+	content: '\f105';
+	right: 50%;
+	transform: translate(50%);
+}
+
+.speedButtons:nth-child(3)::before{
+	content: '\f101';
+	left: 50%;
+	transform: translate(-50%);
+}
+
+.speedButtons:checked::before{
+	color: orange;
+}
+
+.speedButtons:checked{
+	box-shadow: -5px -10px 15px rgba(255, 255, 255, 0.1),
+				inset -5px -2px 15px rgba(255, 255, 255, 0.15),
+				5px 10px 15px rgba(0, 0, 0, 0.5),
+				inset 5px 5px 10px rgba(0, 0, 0, 0.75);
+}
