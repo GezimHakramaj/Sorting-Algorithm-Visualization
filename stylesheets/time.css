@@ -1,0 +1,33 @@
+.time{
+	position: absolute;
+	width: 1vw;
+	top: 12vh;
+	color: orange;
+	font-size: 1vw;
+	justify-content: center;
+	text-align: center;
+}
+
+#current{
+	position: absolute;
+	left: -10vh;
+	display: none;
+}
+
+#current::before{
+	content: "Current: ";
+	position: absolute;
+	top: -100%;
+}
+
+#last{
+	position: absolute;
+	right: -5vh;
+	display: none;
+}
+
+#last::before{
+	content: "Previous: ";
+	position: absolute;
+	top: -100%;
+}
