@@ -1,0 +1,45 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body{
+	display: flex;
+	background: #282b29;
+}
+
+.arrayContainer{
+	display: flex;
+	align-items: flex-end;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: 10px;
+	height: 65vmin;
+}
+
+.bar{
+	width: 100%;
+	border: 1px solid black;
+	background-color: white;
+}
+
+.buttonContainer{
+	position: absolute;
+	margin-top: 10px;
+	display: flex;
+	height: 2vh;
+	width: 35vw;
+	justify-content: space-around;
+	align-items: center;
+}
+
+#btnCon1{
+	left: 0;
+}
+
+#btnCon2{
+	right: 0;
+}
