@@ -1,5 +1,5 @@
 class ArrayList extends Array{ // Creating an ArrayList object to contain Array's methods and also add other methods purposeful to the app.
-
+	
 	deleteList(size){ // Method which drops the original array using Array class's splic method.
 		this.splice(0, this.size())
 	}
@@ -18,21 +18,21 @@ class ArrayList extends Array{ // Creating an ArrayList object to contain Array'
 		the list and create a new container div to store the bar divs when we create new bars and populate the ArrayList once again.	
 	*/	
 	generateArrayList(size){
-		var flex = document.getElementById("flexContainer");
+		var flex = document.getElementById("arrayContainer");
 		if(!this.isEmpty()){
 			this.deleteList(this.size());
-			flex = createFlexBox();
+			flex = createArrayContainer();
 		}
 		for(var i = 0; i < size; i++){
 			var bar = createBars(flex, i, size);	
-			arr[i] = new Node(i+1, bar, false);
+			arr[i] = new Node(i+1, bar);
 		}
 	}
 
-	randomize(){ // Method which randomizes the array, using the swap function below.
+	randomize(bool){ // Method which randomizes the array, using the swap function below.
 		for(var i = 0; i < this.size(); i++){
 			var j = Math.floor(Math.random() * i);
-			this.swap(i, j);
+				this.swap(i, j);
 		}
 	}
 
@@ -41,14 +41,23 @@ class ArrayList extends Array{ // Creating an ArrayList object to contain Array'
 		without the need to loop through div ids and setting the height like that or possibly creating a second array for divs entirely.
 	*/
 	swap(i, j){
-		var temp = this[i].value;
-		this[i].value = this[j].value;
-		this[j].value = temp;
+		[this[i].value, this[j].value] = [this[j].value, this[i].value];
 		this[i].setBarHeight();
 		this[j].setBarHeight();
 	}
 
+	async barSwap(i, j){ // Method to simulate checking between two values by updating their colors and then reverting back to white after swapping them.
+		this[i].setBarColor("blue");
+		this[j].setBarColor("blue");
+		this.swap(i, j);
+		await sleep(1);	
+		this[i].setBarColor("white");
+		this[j].setBarColor("white");
+	}
 
+	async setSorted(){ // Method to change the colors of the bars to represent sorted
+		for(var i = 0; i < this.size(); i++) await sleep(20), this[i].setBarColor("orange");
+	}
 }
 
 var arr = new ArrayList(); // Creating a new global ArrayList object.
