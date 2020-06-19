@@ -1,9 +1,8 @@
 class Node{ // Node object will store a value, a reference to the div element, and a sorted value which will be used to change the bar's color.
 
-	constructor(value, bar, sorted){
-		this.value = value;
+	constructor(value, bar){ // Each node will have a value and a reference to the bar it will be representing.
+		this.value = value;	 // While sorting we wont be swapping nodes rather than the values and updating the heights respectively.
 		this.bar = bar;
-		this.sorted = sorted;
 	}
 
 	/*
