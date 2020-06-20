@@ -1,5 +1,10 @@
 class ArrayList extends Array{ // Creating an ArrayList object to contain Array's methods and also add other methods purposeful to the app.
 	
+	constructor(sorted){
+		super();
+		this.sorted = sorted;
+	}
+
 	deleteList(size){ // Method which drops the original array using Array class's splic method.
 		this.splice(0, this.size())
 	}
@@ -36,6 +41,8 @@ class ArrayList extends Array{ // Creating an ArrayList object to contain Array'
 		}
 	}
 
+	
+
 	/*
 		Helper method to swap values of nodes rather than actual nodes to keep referrencial integrity to the corresponding div.box so we can update the div.box's respecitve to the value simultaenously,
 		without the need to loop through div ids and setting the height like that or possibly creating a second array for divs entirely.
@@ -47,8 +54,8 @@ class ArrayList extends Array{ // Creating an ArrayList object to contain Array'
 	}
 
 	async barSwap(i, j){ // Method to simulate checking between two values by updating their colors and then reverting back to white after swapping them.
-		this[i].setBarColor("blue");
-		this[j].setBarColor("blue");
+		this[i].setBarColor("#314799");
+		this[j].setBarColor("#314799");
 		this.swap(i, j);
 		await sleep(1);	
 		this[i].setBarColor("white");
@@ -56,8 +63,8 @@ class ArrayList extends Array{ // Creating an ArrayList object to contain Array'
 	}
 
 	async setSorted(){ // Method to change the colors of the bars to represent sorted
-		for(var i = 0; i < this.size(); i++) await sleep(20), this[i].setBarColor("orange");
+		for(var i = 0; i < this.size(); i++) await sleep(), this[i].setBarColor("orange");
 	}
 }
 
-var arr = new ArrayList(); // Creating a new global ArrayList object.
+var arr = new ArrayList(false); // Creating a new global ArrayList object.
