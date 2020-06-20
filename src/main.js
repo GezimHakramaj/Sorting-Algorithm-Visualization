@@ -4,6 +4,7 @@ var speed = 1;
 var offset;
 
 async function main(id){
+	if(arr.sorted) createArray();
 	toggleButtons(id)
 	toggleText(true);
 	toggleTime();
@@ -11,11 +12,12 @@ async function main(id){
 	if(id == "iSort") await insertionSort(arr);
 	else if(id == "bSort") await bubbleSort(arr);
 	else if(id == "qSort") await quickSort(arr, 0, arr.size()-1);
-	else if(id == "mSort") await mergeSort(arr);
+	else if(id == "mSort") await mergeSort(arr, 0, arr.size()-1);
 	clearInterval(intervalID);
 	toggleText(false);
 	resetButtons(id);
 	arr.setSorted();
+	arr.sorted = true;
 }
 
 /*
@@ -140,6 +142,5 @@ function getOffset(){
 }
 
 async function m(){
-	arr = await mergeSort(arr);
-	console.log(arr);
+	;
 }
