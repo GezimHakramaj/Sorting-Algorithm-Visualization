@@ -1,3 +1,9 @@
+/* #9265B8 - sorting red */
+/* #F08C29 - orange */
+/* #313B78 - swapping blue */
+/* #282B29 - backgorund gray */
+/* #497a53 - military green */
+
 *{
 	margin: 0;
 	padding: 0;
@@ -6,7 +12,7 @@
 
 body{
 	display: flex;
-	background: #282b29;
+	background: #282B29;
 }
 
 .arrayContainer{

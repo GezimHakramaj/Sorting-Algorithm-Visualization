@@ -45,13 +45,13 @@
 	justify-content: center;
 	align-items: center;
 	-webkit-appearance: none;
-	border: 3px solid #282B29;
+	border: .2vmin solid #282B29;
 	border-radius: 50%;
 	height: 4vmin;
 	width: 4vmin;
 	outline: none;
 	cursor: pointer;
-	box-shadow: -5px -15px 15px rgba(255, 255, 255, 0.1),
+	box-shadow: -2px -5px 10px rgba(255, 255, 255, 0.1),
 				5px 10px 15px rgba(0, 0, 0, 0.5);
 }
 

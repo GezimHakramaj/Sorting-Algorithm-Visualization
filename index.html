@@ -2,11 +2,11 @@
 <html>
 <head>
 	<title>Sorting Algorithm Visualization</title>
-	<script type="text/javascript" src="src\main.js"></script>
 	<script type="text/javascript" src="src\arrayList.js"></script>
+	<script type="text/javascript" src="src\main.js"></script>
 	<script type="text/javascript" src="src\bars.js"></script>
-	<script type="text/javascript" src="src\algorithms.js"></script>
 	<script type="text/javascript" src="src\node.js"></script>
+	<script type="text/javascript" src="src\algorithms.js"></script>
 	<script src="https://kit.fontawesome.com/eafa51cf4f.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="stylesheets\main.css">
 	<link rel="stylesheet" href="stylesheets\slider.css">
@@ -21,13 +21,13 @@
 	<div class="buttonContainer" id="btnCon1">
 		<button class ="button" id="genButton" onclick="createArray()">Generate New Array</button>
 		<div class ="sliderBox">
-			<span class ="sliderText">Change Array Size</span> 
+			<span class ="sliderText" id="sliderText">Change Array Size</span> 
 			<input type="range" min="100" max="500" value="300" class="slider" id="slider" oninput="createArray()">
 		</div>
 		<div class="speedGroup">
-			<input type="checkBox" class="speedButtons" value=2 id="slow" onclick="toggleSpeed(this.className, this.id)">
-			<input type="checkBox" checked="true"class="speedButtons" value=0.5 id="normal" onclick="toggleSpeed(this.className, this.id)">
-			<input type="checkBox" class="speedButtons" value=0.1 id="fastest" onclick="toggleSpeed(this.className, this.id)">
+			<input type="checkBox" class="speedButtons" value=10 id="slow" onclick="toggleSpeed(this.className, this.id)">
+			<input type="checkBox" checked="true"class="speedButtons" value=5 id="normal" onclick="toggleSpeed(this.className, this.id)">
+			<input type="checkBox" class="speedButtons" value=1 id="fastest" onclick="toggleSpeed(this.className, this.id)">
 		</div>
 	</div>
 	
@@ -51,22 +51,22 @@
 			<span class="dots" style="--j:3">.</span>
 		</div>
 		<div class="text" id="sorted">
-			<span>S</span>
-			<span>O</span>
-			<span>R</span>
-			<span>T</span>
-			<span>E</span>
-			<span>D</span>
+			<span>s</span>
+			<span>o</span>
+			<span>r</span>
+			<span>t</span>
+			<span>e</span>
+			<span>d</span>
 			<span class="exmark">!</span>
 		</div>
 	</div>
 
 	<div class="buttonContainer" id="btnCon2">
-		<button class ="button" id="stop" onclick="stop()">Stop</button>
+		<button class ="button" id="stop" onclick="stop(this.id)">Stop</button>
 		<button class ="button" id="iSort" onclick="main(this.id)">Insertion Sort</button>
 		<button class ="button" id="bSort" onclick="main(this.id)">Bubble Sort</button>
 		<button class ="button" id="qSort" onclick="main(this.id)">Quick Sort</button>
-		<button class ="button" id="mSort" onclick="m()">Merge Sort</button>
+		<button class ="button" id="mSort" onclick="main(this.id)">Merge Sort</button>
 	</div>
 	
 	<div class="arrayContainer" id="arrayContainer"></div>	
