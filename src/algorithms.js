@@ -1,9 +1,6 @@
-
-// Helper method to "sleep" for however many miliseconds to allow visualization of sorting rather than
-// an instanteous sort.
-function sleep(ms){
-	console.log(getSpeed()*10);
-	return new Promise(resolve => setTimeout(resolve, ms*getSpeed()*5));
+function sleep(ms){ // Sleep function to allow awaiting during asynchronous tasks which resovles after inputted paramter.
+	console.log(ms);
+	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 // Insertionsort algorithm.
@@ -16,6 +13,7 @@ async function insertionSort(arr){
 			j--; // Decrement variables
 		}
 		arr[j+1].value = temp; // Set index j+1 to temp
+		while(paused) await sleep(1); // Awaiting until pause button is reset
 	}
 }
 
@@ -25,29 +23,32 @@ async function bubbleSort(arr){
 		for(var j = 0; j < arr.size() - 1 - i; j++){ // Nested loop from start - size - 1 - i since the last index will always be sorted.
 			if(arr[j].value > arr[j+1].value) await arr.barSwap(j, j+1); // If index j > index j+1 swap pushing the highest value to the back.
 		}
-		await sleep(); // Await sleep.
+		await sleep(getSpeed()); // Await sleep.
 		arr[arr.size()-i-1].setBarColor("orange"); // Since bubbleSort, pushes the highest value towards the end, the last node is always sorted.
+		while(paused) await sleep(1); // Awaiting until pause button is reset
 	}
 }
 
 async function quickSort(arr, start, end){
 	if(start >= end) return; // Recursion end condition.
+	while(paused) await sleep(1); // Awaiting until pause button is reset
 	var index = await partition(arr, start, end); // Index value returned from partition.
 	arr[index].setBarColor("white"); // Setting white.
 	// Awaiting both calls to quickSort simultaneously.
 	await Promise.all([ 
-		quickSort(arr, start, index-1, ),
-		quickSort(arr, index+1, end, )
+		quickSort(arr, start, index-1),
+		quickSort(arr, index+1, end)
 	])
 }
 
 async function partition(arr, start, end){
-	var pivotIndex = start;
+	var pivotIndex = start; // Set pivot index to start
 	var pivotValue = arr[end].value;
 	arr[pivotIndex].setBarColor("#AD3939");
+	while(paused) await sleep(1); // Awaiting until pause button is reset
 	for(var i = start; i < end; i++){
 		if(arr[i].value < pivotValue){
-			await sleep(1);
+			await sleep(getSpeed());
 			arr[pivotIndex].setBarColor("white");
 			await arr.barSwap(i, pivotIndex);
 			pivotIndex++;
@@ -62,9 +63,9 @@ async function partition(arr, start, end){
 async function mergeSort(array, start, end){
 	// Recursion end condition.
 	if(start < end){
+		while(paused) await sleep(1); // Awaiting until pause button is reset
 		// Mid variable for the start and end's for each recursive split to keep track of where the global variable index is.
 		let mid = Math.floor((start+end)/2);
-
 		// Awaiting both recursive calls to mergeSort to simulate sorting the left & right halves simultaneously.
 		await Promise.all([
 			mergeSort(array, start, mid),
@@ -96,7 +97,8 @@ async function merge(array, start, mid, end){
 	// for-loop to simulate a blue pivot looping through the half (start -> end).
 	for(let x = 0; x < temp.length; x++){
 		arr[x+start].setBarColor("#313B78"); // Setting blue.
-		await sleep(2); // Awaiting sleep 2ms.
+		while(paused) await sleep(1); // Awaiting until pause button is reset
+		await sleep(getSpeed()); // Awaiting sleep 2ms.
 		arr[x+start].setBarColor("white"); // Setting white.
 	}
 	/*
@@ -108,7 +110,8 @@ async function merge(array, start, mid, end){
 			arr[x+start].value = temp[x] // Changing value to the temps array, using the start parameter to ensure the correct index in the global array.
 			arr[x+start].setBarHeight(); // Setting the bar height.
 			arr[x+start].setBarColor("#AD3939"); // Setting red.
-			await sleep(5); // Sleeping for 5ms.
+			while(paused) await sleep(1); // Awaiting until pause button is reset
+			await sleep(getSpeed()); // Sleeping for 5ms.
 			arr[x+start].setBarColor("white"); // Setting white.
 		}
 	}
