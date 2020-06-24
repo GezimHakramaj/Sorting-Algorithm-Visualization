@@ -156,13 +156,11 @@ function stop(id){ // Function to set paused global var true/false when clicked.
 	let genButton = document.getElementById("genButton"); // When paused user will have a chance to opt-out the current sorting algo and reset with a new one.
 	if(paused){
 		// If paused is initially true then unpause the program and toggle the generate new array button to false.
-		paused = false, 
-		document.getElementById(id).innerHTML = "Stop",
-		toggle(true, genButton);
+		paused = false; 
+		document.getElementById(id).innerHTML = "Stop";
 	}else{
 		// If paused is initially false then pause the program and toggle the generate new array button to true.
- 		paused = true
- 		document.getElementById(id).innerHTML = "Resume"
- 		toggle(false, genButton);
+ 		paused = true;
+ 		document.getElementById(id).innerHTML = "Resume";
  	}
 }
