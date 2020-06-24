@@ -1,7 +1,7 @@
 class ArrayList extends Array{ // Creating an ArrayList object to contain Array's methods and also add other methods purposeful to the app.
 	
-	constructor(sorted){
-		super();
+	constructor(sorted){ // Super constructor
+		super(); 
 		this.sorted = sorted;
 	}
 
@@ -53,18 +53,18 @@ class ArrayList extends Array{ // Creating an ArrayList object to contain Array'
 		this[j].setBarHeight();
 	}
 
-	async barSwap(i, j){ // Method to simulate checking between two values by updating their colors and then reverting back to white after swapping them.
+	async barSwap(i, j, offset){ // Method to simulate checking between two values by updating their colors and then reverting back to white after swapping them.
 		this[i].setBarColor("#314799");
 		this[j].setBarColor("#314799");
 		this.swap(i, j);
-		await sleep(1);	
+		while(paused) await sleep(1);
+		await sleep(getSpeed());	
 		this[i].setBarColor("white");
 		this[j].setBarColor("white");
 	}
 
 	async setSorted(){ // Method to change the colors of the bars to represent sorted
-		for(var i = 0; i < this.size(); i++) await sleep(), this[i].setBarColor("orange");
+		this.sorted = true;
+		for(var i = 0; i < this.size(); i++) await sleep(1), this[i].setBarColor("orange");
 	}
 }
-
-var arr = new ArrayList(false); // Creating a new global ArrayList object.
