@@ -12,7 +12,7 @@ function createBars(parent, num, size){ // Method to create a Bar div inside the
 	rather than looping through and finding, if size==500, 500 bar divs and deleting those we delete the container dropping all bars.
 */
 function createArrayContainer(){
-	// Drop old flexbox.
+	// Drop old flexbox. (container of the bars)
 	var oldFlex = document.getElementById("arrayContainer");
 	oldFlex.remove();
 	// Create new flexbox.
