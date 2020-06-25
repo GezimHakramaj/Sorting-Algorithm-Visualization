@@ -11,6 +11,7 @@ var arr = new ArrayList(false); // Global array used to perform sorting algorith
 */
 async function main(id){ // Main function which executes for each sorting algorithm using the buttons id to distinguish between which algo to execute.
 	if(arr.sorted) createArray();
+	toggle(false, document.getElementById("stop"));
 	toggleButtons(id)
 	toggleText(true);
 	toggleTime();
@@ -30,6 +31,7 @@ function createArray(){ // Function to create an array.
 	arr.generateArrayList(slider); // Generate array with size slider.
 	arr.randomize(); // Randomize the array.
 	arr.sorted = false; // Set array.sorted false.
+	toggle(true, document.getElementById("stop"));
 }
 
 function getSliderValue(){ // Getter for slider value.
@@ -95,6 +97,7 @@ async function updateTime(){ // Function to show clock functionality.
 		csec.style.transform = `rotateZ(${seconds * deg}deg)`; // Rotating actual div element to rotate the hand by deg * time elapsed respectively.
 
 		while(paused) await sleep(1); // If paused await until unpaused.
+		await sleep(10);
 	}
 }
 

@@ -1,5 +1,4 @@
 function sleep(ms){ // Sleep function to allow awaiting during asynchronous tasks which resovles after inputted paramter.
-	console.log(ms);
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
@@ -29,7 +28,7 @@ async function bubbleSort(arr){
 	}
 }
 
-// Quicksort algorithm
+// Quicksort algorithm.
 async function quickSort(arr, start, end){
 	if(start >= end) return; // Recursion end condition.
 	while(paused) await sleep(1); // Awaiting until pause button is reset

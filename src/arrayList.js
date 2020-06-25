@@ -40,9 +40,6 @@ class ArrayList extends Array{ // Creating an ArrayList object to contain Array'
 				this.swap(i, j);
 		}
 	}
-
-	
-
 	/*
 		Helper method to swap values of nodes rather than actual nodes to keep referrencial integrity to the corresponding div.box so we can update the div.box's respecitve to the value simultaenously,
 		without the need to loop through div ids and setting the height like that or possibly creating a second array for divs entirely.
