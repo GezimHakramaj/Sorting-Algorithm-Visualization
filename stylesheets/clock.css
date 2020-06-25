@@ -21,8 +21,8 @@
 .clock::before{
 	content: '';
 	position: absolute;
-	width: .65vh;
-	height: .65vh;
+	width: .65vmin;
+	height: .65vmin;
 	background: #fff;
 	border-radius: 50%;
 	z-index: 10;
@@ -39,8 +39,8 @@
 .hour::before{
 	position: absolute;
 	content: "";
-	height: 4vh;
-	width: .25vw;
+	height: 4vmin;
+	width: .25vmin;
 	bottom: 0;
 	background: black;
 	border-radius: 10px;
@@ -50,9 +50,9 @@
 .minute::before{
 	position: absolute;
 	content: "";
-	height: 6vh;
-	width: .15vw;
-	bottom: -1vh;
+	height: 6vmin;
+	width: .15vmin;
+	bottom: -1vmin;
 	background: gray;
 	border-radius: 10px;
 	z-index: 2;
@@ -61,9 +61,9 @@
 .second::before{
 	position: absolute;
 	content: "";
-	height: 8vh;
-	width: .1vw;
-	bottom: -2vh;
+	height: 8vmin;
+	width: .1vmin;
+	bottom: -2vmin;
 	background: orange;
 	border-radius: 10px;
 	z-index: 1;

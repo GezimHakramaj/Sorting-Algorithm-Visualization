@@ -1,8 +1,14 @@
 var firstSort = true; // Global for checking if its our first sort.
-var speed = .5; // Global variable for speed.
-var paused = false; // Global variable to see if user has paused to webpage.
+var speed = .5; // Global variable for speed. (deafult .5 "normal speed").
+var paused = false; // Global variable to see if user has paused the webpage.
 var arr = new ArrayList(false); // Global array used to perform sorting algorithms.
 
+/*
+	When user selects a sorting algorithm, we check if the array was already sorted (checking if user forgot to generate a new array while completing the previous sort)
+	and regenerate a new one for them. Then we toggle buttons except for passed ID (selected sorting algorithm) off, toggle sorting/sorted text on, toggle the time text,
+	begin counting time and then execute a sorting algorithm based on which id was passed (selected sorting algorithm) rather than having a "main" function for each button.
+	After the sorting process, we toggle the sorting/sorted text to sorted, await the array setSorted func and then re toggle the buttons all on.
+*/
 async function main(id){ // Main function which executes for each sorting algorithm using the buttons id to distinguish between which algo to execute.
 	if(arr.sorted) createArray();
 	toggleButtons(id)
@@ -10,10 +16,10 @@ async function main(id){ // Main function which executes for each sorting algori
 	toggleTime();
 	updateTime();
 	// Depending on which algo executes we await until its finished to proceed with the rest of the function calls.
-	if(id == "iSort") await insertionSort(arr);
-	else if(id == "bSort") await bubbleSort(arr);
-	else if(id == "qSort") await quickSort(arr, 0, arr.size()-1);
-	else if(id == "mSort") await mergeSort(arr, 0, arr.size()-1);
+	if(id == "iSort") await insertionSort(arr); 
+	else if(id == "bSort") await bubbleSort(arr); 
+	else if(id == "qSort") await quickSort(arr, 0, arr.size()-1); 
+	else if(id == "mSort") await mergeSort(arr, 0, arr.size()-1); 
 	toggleText(false);
 	await arr.setSorted();
 	resetButtons(id);
@@ -48,48 +54,47 @@ function toggleTime(){ // Display the text for counting the time it takes to sor
 		const last = document.getElementById("last");
 		last.style.display = "block"; // If its not our first time set last time text display to block.
 		last.innerHTML = current.innerHTML;
-		return; // If it is not our first time we set the last algos time to our last text and start counting again
+		return; // If it is not our first time we set the last algos time to our last text and start counting again.
 	}
 	current.style.display = "block" // If its our first sort we display our current time text and start counting.
 	firstSort = false;
 }
 
-async function updateTime(){
-	var now = Date.now();
-	var min = document.getElementById("min");
-	var sec = document.getElementById("sec");
-	var ms = document.getElementById("msec");
-	var chour = document.getElementById("chr");
-	var cmin = document.getElementById("cmin");
-	var csec = document.getElementById("csec");
+async function updateTime(){ // Function to show clock functionality.
+	var now = Date.now(); // Variable to get the time of function call.
+	var min = document.getElementById("min"); // Text element which will count time elapsed.
+	var sec = document.getElementById("sec"); // Text element which will count time elapsed.
+	var ms = document.getElementById("msec"); // Text element which will count time elapsed.
+	var chour = document.getElementById("chr"); // Actual clock hand (div element). 
+	var cmin = document.getElementById("cmin"); // Actual clock hand (div element).
+	var csec = document.getElementById("csec"); // Actual clock hand (div element). 
 
 	const deg = 6;
-	var seconds = 0;
-	var minutes = 0;
+	var seconds = 0; // Variable to store how many seconds have elapsed.
+	var minutes = 0; // Variable to store how many minuts have elapsed.
 
-	while(!arr.sorted){ 
-		var time = Date.now() - now
-		var mseconds = Math.floor(time * 0.1);
-		ms.innerHTML = mseconds;
-		if(mseconds > 100){
-			mseconds = 0; 
-			now = Date.now();
-			seconds++;
-			if(seconds == 60) seconds = 0, minutes++;
+	while(!arr.sorted){ // Loop until array is sorted.
+		var time = Date.now() - now // Get the time of loop initiation minus when we started the function call.
+		var mseconds = Math.floor(time * 0.1); // Getting how many miliseconds have elapsed.
+		ms.innerHTML = mseconds; // Changing text elements text to how many milliseconds have passed (just last two digits).
+		if(mseconds > 100){ // Only counting the last 2 digits, if greater than 100 we reset back to zero to only show the last two digits.
+			mseconds = 0; // Reset milliseconds to 0
+			now = Date.now(); // Get new time elapsed.
+			seconds++; // Increment seconds
+			if(seconds == 60) seconds = 0, minutes++; // If a minute has elapsed reset seconds to 0 and increment minutes.
 		}
-		if(seconds < 10) sec.innerHTML = 0+""+seconds;
-		else sec.innerHTML = seconds;
-		if(minutes < 10) min.innerHTML = 0+""+minutes;
-		else min.innerHTML = minutes;
+		if(seconds < 10) sec.innerHTML = 0+""+seconds; // Adding a 0 placeholder to represent 05 milliseconds rather than just a 5. 
+		else sec.innerHTML = seconds; // If its not less than 2 digits we just represent the actual number without adding a 0 placeholder.
+		if(minutes < 10) min.innerHTML = 0+""+minutes; // Adding a 0 placeholder to represent 05 milliseconds rather than just a 5.
+		else min.innerHTML = minutes; // If its not less than 2 digits we just represent the actual number without adding a 0 placeholder.
 
-		var hours = 60 % minutes;
+		var hours = 60 % minutes; // Possibly never reach an hour of sorting but included just for functionality.
 
-		chour.style.transform = `rotateZ(${hours}deg)`;
-		cmin.style.transform = `rotateZ(${minutes * deg}deg)`;
-		csec.style.transform = `rotateZ(${seconds * deg}deg)`;
+		chour.style.transform = `rotateZ(${hours}deg)`; // Rotating actual div element to rotate the hand by deg * time elapsed respectively. 
+		cmin.style.transform = `rotateZ(${minutes * deg}deg)`; // Rotating actual div element to rotate the hand by deg * time elapsed respectively.
+		csec.style.transform = `rotateZ(${seconds * deg}deg)`; // Rotating actual div element to rotate the hand by deg * time elapsed respectively.
 
-		while(paused) await sleep(1);
-		await sleep(10);
+		while(paused) await sleep(1); // If paused await until unpaused.
 	}
 }
 
@@ -138,8 +143,8 @@ function toggle(bool, btn){ // Helper function to toggle on/off a button.
 }
 
 function toggleSpeed(className, id){ // Function to allow one checked button at a time and change the speed respectively
-	if(!document.getElementById(id).checked) document.getElementById(id).checked = true;
-	else{
+	if(!document.getElementById(id).checked) document.getElementById(id).checked = true; // If selected same button "recheck" the same button.
+	else{ // Or loop through and uncheck the other buttons and set speed to which button's id was clicked and passed.
 		let buttons = document.getElementsByClassName(className);
 		for(let i = 0; i < buttons.length; i++){
 			if(buttons[i].id == id) speed = buttons[i].value;

@@ -29,6 +29,7 @@ async function bubbleSort(arr){
 	}
 }
 
+// Quicksort algorithm
 async function quickSort(arr, start, end){
 	if(start >= end) return; // Recursion end condition.
 	while(paused) await sleep(1); // Awaiting until pause button is reset
@@ -42,24 +43,24 @@ async function quickSort(arr, start, end){
 }
 
 async function partition(arr, start, end){
-	var pivotIndex = start; // Set pivot index to start
-	var pivotValue = arr[end].value;
+	var pivotIndex = start; // Set pivot index to start.
+	var pivotValue = arr[end].value; // Set pivot value of arr[end].
 	arr[pivotIndex].setBarColor("#AD3939");
-	while(paused) await sleep(1); // Awaiting until pause button is reset
-	for(var i = start; i < end; i++){
-		if(arr[i].value < pivotValue){
-			await sleep(getSpeed());
-			arr[pivotIndex].setBarColor("white");
-			await arr.barSwap(i, pivotIndex);
-			pivotIndex++;
-			arr[pivotIndex].setBarColor("#AD3939");
+	while(paused) await sleep(1); // Awaiting until pause button is reset.
+	for(var i = start; i < end; i++){ // Loop through array.
+		if(arr[i].value < pivotValue){ // If arr[i] < pivotValue. 
+			await sleep(getSpeed()); // Sleep.
+			arr[pivotIndex].setBarColor("white"); // Set pivot index to white.
+			await arr.barSwap(i, pivotIndex); // Swap i and pivotIndex indicies.
+			pivotIndex++; // Increase pivot index.
+			arr[pivotIndex].setBarColor("#AD3939"); // Set pivot red.
 		}
 	}
-	await arr.barSwap(pivotIndex, end);
-	return pivotIndex
+	await arr.barSwap(pivotIndex, end); // When done looping swap end and pivot.
+	return pivotIndex // Return pivot index.
 }
 
-
+// Mergesort algorthim.
 async function mergeSort(array, start, end){
 	// Recursion end condition.
 	if(start < end){
