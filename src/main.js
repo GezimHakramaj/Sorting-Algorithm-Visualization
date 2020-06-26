@@ -1,6 +1,7 @@
 var firstSort = true; // Global for checking if its our first sort.
 var speed = .5; // Global variable for speed. (deafult .5 "normal speed").
 var paused = false; // Global variable to see if user has paused the webpage.
+var reload = false; // Global to opt out current sorting algo for another rather than reload page.
 var arr = new ArrayList(false); // Global array used to perform sorting algorithms.
 
 /*
@@ -11,8 +12,7 @@ var arr = new ArrayList(false); // Global array used to perform sorting algorith
 */
 async function main(id){ // Main function which executes for each sorting algorithm using the buttons id to distinguish between which algo to execute.
 	if(arr.sorted) createArray();
-	toggle(false, document.getElementById("stop"));
-	toggleButtons(id)
+	toggleButtons(id, true);
 	toggleText(true);
 	toggleTime();
 	updateTime();
@@ -22,8 +22,14 @@ async function main(id){ // Main function which executes for each sorting algori
 	else if(id == "qSort") await quickSort(arr, 0, arr.size()-1); 
 	else if(id == "mSort") await mergeSort(arr, 0, arr.size()-1); 
 	toggleText(false);
-	await arr.setSorted();
-	resetButtons(id);
+	if(!reload) await arr.setSorted(); // If user didnt select reset we execute a setSorted function to color the sorted array orange.
+	else{ // Otherwise we reset the array to a randomized array.
+		toggleButtons(id, false);
+		document.getElementById("sorted").style.display = "none";
+		createArray();
+		resetReload();
+	}
+
 }
 
 function createArray(){ // Function to create an array.
@@ -31,7 +37,6 @@ function createArray(){ // Function to create an array.
 	arr.generateArrayList(slider); // Generate array with size slider.
 	arr.randomize(); // Randomize the array.
 	arr.sorted = false; // Set array.sorted false.
-	toggle(true, document.getElementById("stop"));
 }
 
 function getSliderValue(){ // Getter for slider value.
@@ -63,7 +68,6 @@ function toggleTime(){ // Display the text for counting the time it takes to sor
 }
 
 async function updateTime(){ // Function to show clock functionality.
-	var now = Date.now(); // Variable to get the time of function call.
 	var min = document.getElementById("min"); // Text element which will count time elapsed.
 	var sec = document.getElementById("sec"); // Text element which will count time elapsed.
 	var ms = document.getElementById("msec"); // Text element which will count time elapsed.
@@ -75,6 +79,7 @@ async function updateTime(){ // Function to show clock functionality.
 	var seconds = 0; // Variable to store how many seconds have elapsed.
 	var minutes = 0; // Variable to store how many minuts have elapsed.
 
+	var now = Date.now(); // Variable to get the time of function call.
 	while(!arr.sorted){ // Loop until array is sorted.
 		var time = Date.now() - now // Get the time of loop initiation minus when we started the function call.
 		var mseconds = Math.floor(time * 0.1); // Getting how many miliseconds have elapsed.
@@ -97,52 +102,29 @@ async function updateTime(){ // Function to show clock functionality.
 		csec.style.transform = `rotateZ(${seconds * deg}deg)`; // Rotating actual div element to rotate the hand by deg * time elapsed respectively.
 
 		while(paused) await sleep(1); // If paused await until unpaused.
+		if(reload) return;
 		await sleep(10);
 	}
 }
 
-function toggleButtons(id){ // Function to toggle off buttons while sorting.
+function toggleButton(id, bool){ // Helper to toggle stop/reset buttons.
+	document.getElementById(id).disabled = bool;
+}
+
+function toggleButtons(id, bool){ // Function to toggle off buttons while sorting.
 	let buttons = document.getElementsByClassName("button");
 	let slider = document.getElementById("slider");
 	let text = document.getElementById("sliderText");
+
 	for(var i = buttons.length-1; i >= 0; i--){
 		if(buttons[i].id == id) buttons[i].style.color = "orange";
-		else{
-			if(buttons[i].id == "stop") continue;
-			toggle(true, buttons[i]);
-		}
+		if(buttons[i].id != "stop") buttons[i].disabled = bool;
+		else buttons[i].disabled = !bool
 	}
 	// Toggle slider off
-	slider.disabled = true;
-	slider.className = "sliderDisabled"
-	text.style.color = "gray";
-}
-
-function resetButtons(id){ // Function to toggle on all buttons after sort.
-	let buttons = document.getElementsByClassName("buttonDisabled");
-	let slider = document.getElementById("slider");
-	let text = document.getElementById("sliderText");
-	const current = document.getElementById(id);
-	current.style.color = "white";
-	for(var i = buttons.length-1; i >= 0; i--){
-		toggle(false, buttons[i]);
-	}
-	// Toggle slider on
-	slider.disabled = false;
-	slider.className = "slider"
-	text.style.color = "orange";
-}
-
-function toggle(bool, btn){ // Helper function to toggle on/off a button.
-	if(bool){
-		btn.disabled = true;
-		btn.style.color = "gray";
-		btn.className = "buttonDisabled"
-	}else{
-		btn.disabled = false;
-		btn.style.color = "white";
-		btn.className = "button"
-	}
+	slider.disabled = bool;
+	if(bool) text.style.color = "gray";
+	else text.style.color = "orange";
 }
 
 function toggleSpeed(className, id){ // Function to allow one checked button at a time and change the speed respectively
@@ -160,15 +142,27 @@ function getSpeed(){ // Getter for gloabl var speed
 	return speed;
 }
 
-function stop(id){ // Function to set paused global var true/false when clicked.
-	let genButton = document.getElementById("genButton"); // When paused user will have a chance to opt-out the current sorting algo and reset with a new one.
+function pause(id){ // Function to set paused global var true/false when clicked.
 	if(paused){
 		// If paused is initially true then unpause the program and toggle the generate new array button to false.
 		paused = false; 
 		document.getElementById(id).innerHTML = "Stop";
+		toggleButton("reload", true);
 	}else{
 		// If paused is initially false then pause the program and toggle the generate new array button to true.
  		paused = true;
  		document.getElementById(id).innerHTML = "Resume";
+ 		toggleButton("reload", false);
  	}
+}
+
+function reloadArray(){ // Function to trigger exiting functions to get a new array.
+	reload = true;
+	paused = false; 
+	document.getElementById("stop").innerHTML = "Stop";
+}
+
+function resetReload(){ // Helper to reset "Reset" button to initally disabled.
+	reload = false;
+	document.getElementById("reload").disabled = true;
 }

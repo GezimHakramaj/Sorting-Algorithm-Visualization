@@ -10,9 +10,11 @@ async function insertionSort(arr){
 		while(j >= 0 && arr[j].value > temp){ // While j is not less than zero & index j is greater than temp (index i) check if we need to do a swap.
 			await arr.barSwap(j+1, j); // Await barSwap function which sets the height & colors as well as swapping.
 			j--; // Decrement variables
+			if(reload) return; // If user selects reset, the function exits with return.
 		}
 		arr[j+1].value = temp; // Set index j+1 to temp
 		while(paused) await sleep(1); // Awaiting until pause button is reset
+		
 	}
 }
 
@@ -21,6 +23,7 @@ async function bubbleSort(arr){
 	for(var i = 0; i < arr.size(); i++){ // First loop.
 		for(var j = 0; j < arr.size() - 1 - i; j++){ // Nested loop from start - size - 1 - i since the last index will always be sorted.
 			if(arr[j].value > arr[j+1].value) await arr.barSwap(j, j+1); // If index j > index j+1 swap pushing the highest value to the back.
+			if(reload) return; // If user selects reset, the function exits with return.
 		}
 		await sleep(getSpeed()); // Await sleep.
 		arr[arr.size()-i-1].setBarColor("orange"); // Since bubbleSort, pushes the highest value towards the end, the last node is always sorted.
@@ -33,6 +36,7 @@ async function quickSort(arr, start, end){
 	if(start >= end) return; // Recursion end condition.
 	while(paused) await sleep(1); // Awaiting until pause button is reset
 	var index = await partition(arr, start, end); // Index value returned from partition.
+	if(reload) return; // If user selects reset, the function exits with return.
 	arr[index].setBarColor("white"); // Setting white.
 	// Awaiting both calls to quickSort simultaneously.
 	await Promise.all([ 
@@ -48,11 +52,11 @@ async function partition(arr, start, end){
 	while(paused) await sleep(1); // Awaiting until pause button is reset.
 	for(var i = start; i < end; i++){ // Loop through array.
 		if(arr[i].value < pivotValue){ // If arr[i] < pivotValue. 
-			await sleep(getSpeed()); // Sleep.
 			arr[pivotIndex].setBarColor("white"); // Set pivot index to white.
 			await arr.barSwap(i, pivotIndex); // Swap i and pivotIndex indicies.
 			pivotIndex++; // Increase pivot index.
 			arr[pivotIndex].setBarColor("#AD3939"); // Set pivot red.
+			if(reload) return; // If user selects reset, the function exits with return.
 		}
 	}
 	await arr.barSwap(pivotIndex, end); // When done looping swap end and pivot.
@@ -61,6 +65,7 @@ async function partition(arr, start, end){
 
 // Mergesort algorthim.
 async function mergeSort(array, start, end){
+	if(reload) return; // If user selects reset, the function exits with return.
 	// Recursion end condition.
 	if(start < end){
 		while(paused) await sleep(1); // Awaiting until pause button is reset
@@ -96,6 +101,7 @@ async function merge(array, start, mid, end){
 	}
 	// for-loop to simulate a blue pivot looping through the half (start -> end).
 	for(let x = 0; x < temp.length; x++){
+		if(reload) return; // If user selects reset, the function exits with return.
 		arr[x+start].setBarColor("#313B78"); // Setting blue.
 		while(paused) await sleep(1); // Awaiting until pause button is reset
 		await sleep(getSpeed()); // Awaiting sleep 2ms.
@@ -106,6 +112,7 @@ async function merge(array, start, mid, end){
 	   sorts the original array in the same way we do in swap by values rather than nodes. We mark the values being changed with a red color.
 	*/
 	for(let x = 0; x < temp.length; x++){
+		if(reload) return; // If user selects reset, the function exits with return.
 		if(arr[x+start].value != temp[x]){
 			arr[x+start].value = temp[x] // Changing value to the temps array, using the start parameter to ensure the correct index in the global array.
 			arr[x+start].setBarHeight(); // Setting the bar height.
