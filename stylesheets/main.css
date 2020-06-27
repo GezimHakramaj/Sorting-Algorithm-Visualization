@@ -1,8 +1,3 @@
-/* #9265B8 - sorting red */
-/* #F08C29 - orange */
-/* #313B78 - swapping blue */
-/* #282B29 - backgorund gray */
-
 *{
 	margin: 0;
 	padding: 0;
@@ -32,20 +27,38 @@ body{
 	background-color: white;
 }
 
-.buttonContainer{
+.row{
 	position: absolute;
-	margin-top: 10px;
 	display: flex;
-	height: 2vh;
-	width: 35vw;
-	justify-content: space-around;
+	flex-direction: row;
 	align-items: center;
+	width: 35%;
+	height: 3vh;
+	top: 1vmin;
 }
 
-#btnCon1{
+.row:nth-child(1){
 	left: 0;
 }
-
-#btnCon2{
+.row:nth-child(2){
 	right: 0;
+}
+.row:nth-child(3){
+	right: 0;
+	top: 5vmin;
+}
+
+.column, .x2column{
+	display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+	flex: 1;
+}
+
+.column{
+	flex: 1;
+}
+
+.x2column{
+	flex: 2;
 }

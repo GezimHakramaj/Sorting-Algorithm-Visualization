@@ -1,20 +1,16 @@
 .sliderBox{
-	position: relative;
 	display: flex;
 	height: 3vmin;
-	width: 20vmin;
-	margin-top: 1vh;
+	width: auto;
 	justify-content: center;
 	align-items: center;
 }
 
 .sliderText{
 	position: absolute;
-	font-size: 1.5vmin;
+	font-size: 1vmin;
 	color: orange;
-	top: 50%;
-	transform: translate(0, 50%);
-
+	top: 75%;
 }
 
 .slider{
@@ -38,4 +34,8 @@
 	border-radius: 50%;
 	cursor: pointer;
 	background: orange;
+}
+
+.slider:disabled, .slider:disabled + span{
+	display: none;
 }

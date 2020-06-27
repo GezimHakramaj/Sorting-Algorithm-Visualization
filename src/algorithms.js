@@ -13,28 +13,24 @@ async function insertionSort(arr){
 			if(reload) return; // If user selects reset, the function exits with return.
 		}
 		arr[j+1].value = temp; // Set index j+1 to temp
-		while(paused) await sleep(1); // Awaiting until pause button is reset
-		
 	}
 }
 
 // Bubblesort algorithm.
 async function bubbleSort(arr){
-	for(var i = 0; i < arr.size(); i++){ // First loop.
+	var i = 0;
+	while(i < arr.size()){
 		for(var j = 0; j < arr.size() - 1 - i; j++){ // Nested loop from start - size - 1 - i since the last index will always be sorted.
 			if(arr[j].value > arr[j+1].value) await arr.barSwap(j, j+1); // If index j > index j+1 swap pushing the highest value to the back.
 			if(reload) return; // If user selects reset, the function exits with return.
 		}
-		await sleep(getSpeed()); // Await sleep.
-		arr[arr.size()-i-1].setBarColor("orange"); // Since bubbleSort, pushes the highest value towards the end, the last node is always sorted.
-		while(paused) await sleep(1); // Awaiting until pause button is reset
+		i++;
 	}
 }
 
 // Quicksort algorithm.
 async function quickSort(arr, start, end){
 	if(start >= end) return; // Recursion end condition.
-	while(paused) await sleep(1); // Awaiting until pause button is reset
 	var index = await partition(arr, start, end); // Index value returned from partition.
 	if(reload) return; // If user selects reset, the function exits with return.
 	arr[index].setBarColor("white"); // Setting white.
@@ -48,14 +44,13 @@ async function quickSort(arr, start, end){
 async function partition(arr, start, end){
 	var pivotIndex = start; // Set pivot index to start.
 	var pivotValue = arr[end].value; // Set pivot value of arr[end].
-	arr[pivotIndex].setBarColor("#AD3939");
 	while(paused) await sleep(1); // Awaiting until pause button is reset.
 	for(var i = start; i < end; i++){ // Loop through array.
-		if(arr[i].value < pivotValue){ // If arr[i] < pivotValue. 
-			arr[pivotIndex].setBarColor("white"); // Set pivot index to white.
+		if(arr[i].value < pivotValue){ // If arr[i] < pivotValue.
+			arr[pivotIndex].setBarColor("#AD3939");
+			await sleep(1);
 			await arr.barSwap(i, pivotIndex); // Swap i and pivotIndex indicies.
 			pivotIndex++; // Increase pivot index.
-			arr[pivotIndex].setBarColor("#AD3939"); // Set pivot red.
 			if(reload) return; // If user selects reset, the function exits with return.
 		}
 	}
@@ -102,10 +97,7 @@ async function merge(array, start, mid, end){
 	// for-loop to simulate a blue pivot looping through the half (start -> end).
 	for(let x = 0; x < temp.length; x++){
 		if(reload) return; // If user selects reset, the function exits with return.
-		arr[x+start].setBarColor("#313B78"); // Setting blue.
-		while(paused) await sleep(1); // Awaiting until pause button is reset
-		await sleep(getSpeed()); // Awaiting sleep 2ms.
-		arr[x+start].setBarColor("white"); // Setting white.
+		await arr.setPivot(x+start, "#313B78");
 	}
 	/*
 	   for-loop to set the heights of the global array's values to match the values of the temp array since we arent swapping in mergeSort. This 
@@ -116,10 +108,52 @@ async function merge(array, start, mid, end){
 		if(arr[x+start].value != temp[x]){
 			arr[x+start].value = temp[x] // Changing value to the temps array, using the start parameter to ensure the correct index in the global array.
 			arr[x+start].setBarHeight(); // Setting the bar height.
-			arr[x+start].setBarColor("#AD3939"); // Setting red.
-			while(paused) await sleep(1); // Awaiting until pause button is reset
-			await sleep(getSpeed()); // Sleeping for 5ms.
-			arr[x+start].setBarColor("white"); // Setting white.
+			await arr.setPivot(x+start, "#AD3939");
 		}
 	}
+}
+
+async function cocktailSort(arr){
+	let swap = true; // Bool flag.
+
+	while(swap){ // While swap
+		for(let i = 0; i < arr.size()-1; i++){ // Loop through array like bubble sort.
+			if(arr[i].value > arr[i+1].value){ // If index i > index i+1 swap pushing the highest value to the back.
+				await arr.barSwap(i, i+1); // Await swap.
+				if(reload) return; // If user selects reset, the function exits with return.
+				swap = true; // If a swap occur swap = true.
+			}
+		}
+	
+		if(!swap) break; // If no swaps occur then our array is swap and we break.
+		swap = false; // Otherwise swap = false in case the next loop doesnt need to swap we then will break here next iteration
+
+		for(let j = arr.size()-1; j > 0; j--){ // Second loop to go backwards pushing the smallest value to the front.
+			if(arr[j-1].value > arr[j].value){  // If j-1 > j swap.
+				await arr.barSwap(j-1, j); // If index j > index j+1 swap pushing the highest value to the back.
+				if(reload) return; // If user selects reset, the function exits with return.
+				swap = true; // swap = true to show we made a swap.
+			}
+		}
+	}
+}
+
+async function selectionSort(arr){
+	for(var i = 0; i < arr.size()-1; i++){
+		var min = i;
+		for(var j = 1 + i; j < arr.size(); j++){
+				if(arr[j].value < arr[min].value) min = j;
+				arr.setPivot(min, "#7ed977");
+			}
+		await arr.setPivot(i, "#AD3939");
+		await arr.barSwap(i, min);
+	}
+}
+
+async function heapSort(arr){
+	console.log("test");
+}
+
+async function radixSort(arr){
+	console.log("test");
 }

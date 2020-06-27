@@ -1,42 +1,55 @@
-.button{
-	color: white;
+.btnWrapper{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	position: relative;
+	height: auto;
+	width: 
 }
 
-.button{
-	padding-left: 10px;
-	padding-right: 10px;
+label{
+	cursor: pointer;
+	padding: 5px;
 	height: auto;
 	width: auto;
-	background-color: transparent;
-	font-size: .75vw;
-	cursor: pointer;
-	border: none;
-	outline: none;
-	border-radius: 10px;
-	box-shadow: 0 -10px 15px rgba(255, 255, 255, 0.1),
-				inset 0 -10px 15px rgba(255, 255, 255, 0.1),
-				0 15px 15px rgba(0, 0, 0, 0.5),
-				inset 0 15px 15px rgba(0, 0, 0, 0.5);
+	font-size: 1vmin;
+	font-variant: small-caps;
+	font-family: "Poppins", sans-serif;
+	color: white;
+	border: 2px solid #232626;
+	border-radius: 10%;
+	box-shadow: -1px -3px 5px rgba(192, 192, 192, 0.1),
+				1px 5px 5px rgba(0, 0, 0, .25);
 }
 
-.button:disabled{
-	color: gray;
-	cursor: auto;
+.sortBtn, .funcBtns{
+	display: none;
 }
 
-.button:hover:enabled{
+.sortBtn, .funcBtns:hover:enabled + label{
 	color: orange;
-	box-shadow: 0px 2px 15px rgba(255, 255, 255, 0.1),
-				0px -2px 15px rgba(255, 255, 255, 0.1);
+}
+
+.sortBtn, .funcBtns:checked:enabled + label, .sortBtn:checked:disabled + label{
+	color: orange;
+	box-shadow:	inset -2px -3px 5px rgba(192, 192, 192, 0.2),
+				inset 2px 5px 10px rgba(0, 0, 0, .5);
+
+	transform: translateY(2px);
+	transform: scale(0.98);
+}
+
+.sortBtn, .funcBtns:disabled + label{
+	color: gray;
 }
 
 .speedGroup{
-	position: relative;
-	top: .5vmin;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
-	width: 14vmin;
+	width: auto;
+	height: auto;
 }
 
 .speedButtons{
@@ -51,8 +64,8 @@
 	width: 4vmin;
 	outline: none;
 	cursor: pointer;
-	box-shadow: -2px -5px 10px rgba(255, 255, 255, 0.1),
-				5px 10px 15px rgba(0, 0, 0, 0.5);
+	box-shadow:  0 -10px 10px rgba(255, 255, 255, 0.05),
+				 0 10px 10px rgba(0, 0, 0, 0.5);
 }
 
 .speedButtons::before{
@@ -85,8 +98,8 @@
 }
 
 .speedButtons:checked{
-	box-shadow: -5px -10px 15px rgba(255, 255, 255, 0.1),
-				inset -5px -2px 15px rgba(255, 255, 255, 0.15),
-				5px 10px 15px rgba(0, 0, 0, 0.5),
-				inset 5px 5px 10px rgba(0, 0, 0, 0.75);
+	box-shadow: 0 -10px 10px rgba(255, 255, 255, 0.05),
+				inset 0 -10px 10px rgba(255, 255, 255, 0.05),
+				0 10px 10px rgba(0, 0, 0, 0.5),
+				inset 0 10px 10px rgba(0, 0, 0, 0.5);
 }

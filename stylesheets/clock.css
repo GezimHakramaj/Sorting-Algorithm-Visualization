@@ -2,10 +2,10 @@
 	position: absolute;
 	display: flex;
 	left: 50%;
-	margin-top: 1%;
-	margin-left: -10vmin;
-	height: 20vmin;
-	width: 20vmin;
+	top: 2vmin;
+	margin-left: -12.5vmin;
+	height: 25vmin;
+	width: 25vmin;
 	justify-content: center;
 	align-items: center;
 	background: url(../images/clock.png);
@@ -21,8 +21,8 @@
 .clock::before{
 	content: '';
 	position: absolute;
-	width: .65vmin;
-	height: .65vmin;
+	width: 1vmin;
+	height: 1vmin;
 	background: #fff;
 	border-radius: 50%;
 	z-index: 10;
@@ -34,14 +34,15 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	height: 40%;
 }
 
 .hour::before{
 	position: absolute;
 	content: "";
-	height: 4vmin;
+	top: .5vmin;
+	height: 45%;
 	width: .25vmin;
-	bottom: 0;
 	background: black;
 	border-radius: 10px;
 	z-index: 3;
@@ -50,20 +51,21 @@
 .minute::before{
 	position: absolute;
 	content: "";
-	height: 6vmin;
+	top: -1vmin;
+	height: 75%;
 	width: .15vmin;
-	bottom: -1vmin;
 	background: gray;
 	border-radius: 10px;
 	z-index: 2;
 }
 
+
 .second::before{
 	position: absolute;
 	content: "";
-	height: 8vmin;
+	top: -2.5vmin;
+	height: 100%;
 	width: .1vmin;
-	bottom: -2vmin;
 	background: orange;
 	border-radius: 10px;
 	z-index: 1;

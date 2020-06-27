@@ -45,23 +45,35 @@ class ArrayList extends Array{ // Creating an ArrayList object to contain Array'
 		without the need to loop through div ids and setting the height like that or possibly creating a second array for divs entirely.
 	*/
 	swap(i, j){
-		[this[i].value, this[j].value] = [this[j].value, this[i].value];
-		this[i].setBarHeight();
+		[this[i].value, this[j].value] = [this[j].value, this[i].value]; // Swap method swapping node's values.
+		this[i].setBarHeight(); // Changing div's height.
 		this[j].setBarHeight();
 	}
 
 	async barSwap(i, j, offset){ // Method to simulate checking between two values by updating their colors and then reverting back to white after swapping them.
-		this[i].setBarColor("#314799");
+		this[i].setBarColor("#314799"); // Changing bar color to blue.
 		this[j].setBarColor("#314799");
-		this.swap(i, j);
-		while(paused) await sleep(1);
-		await sleep(getSpeed());	
-		this[i].setBarColor("white");
+		this.swap(i, j); // Actual swap
+		while(paused) await sleep(1); // Awaiting sleep until user unpauses
+		await sleep(getSpeed()); // Awaiting sleep
+		this[i].setBarColor("white"); // Changing bar color to white
 		this[j].setBarColor("white");
 	}
 
 	async setSorted(){ // Method to change the colors of the bars to represent sorted
 		this.sorted = true;
-		for(var i = 0; i < this.size(); i++) await sleep(1), this[i].setBarColor("orange");
+		for(var i = 0; i < this.size(); i++){
+			await sleep(1)
+			this[i].setBarColor("orange");
+			while(paused) await sleep(1);
+			if(reload) return; // If user selects reset during coloring the sorted array return prematurely.
+		}
+	}
+
+	async setPivot(index, color){
+		this[index].setBarColor(color);
+		await sleep(getSpeed());
+		while(paused) await sleep(getSpeed());
+		this[index].setBarColor("white");
 	}
 }

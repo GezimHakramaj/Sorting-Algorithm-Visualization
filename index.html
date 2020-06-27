@@ -14,23 +14,98 @@
 	<link rel="stylesheet" href="stylesheets\clock.css">
 	<link rel="stylesheet" href="stylesheets\buttons.css">
 	<link rel="stylesheet" href="stylesheets\time.css">
+	<link rel="stylesheet" href="stylesheets\text.css">
 </head>
 <body onload="createArray()">
 
-
-	<div class="buttonContainer" id="btnCon1">
-		<button class ="button" id="genButton" onclick="createArray()">Generate New Array</button>
-		<div class ="sliderBox">
-			<span class ="sliderText" id="sliderText">Change Array Size</span> 
-			<input type="range" min="100" max="1000" value="500" class="slider" id="slider" oninput="createArray()">
+	<div class="row">
+		<div class="column">
+			<div class="btnWrapper">
+				<input type="checkbox" class="sortBtn" id="gen" onclick="createArray()">
+				<label for="gen">Generate Array</label>
+			</div>
 		</div>
-		<div class="speedGroup">
-			<input type="checkBox" class="speedButtons" value=10 id="slow" onclick="toggleSpeed(this.className, this.id)">
-			<input type="checkBox" checked="true"class="speedButtons" value=5 id="normal" onclick="toggleSpeed(this.className, this.id)">
-			<input type="checkBox" class="speedButtons" value=1 id="fastest" onclick="toggleSpeed(this.className, this.id)">
+		<div class="column">
+			<div class="btnWrapper">
+				<input type="checkbox" class="funcBtns" id="reset" onclick="resetArray()" disabled="true">
+				<label for="reset">Reset</label>
+			</div>
+		</div>
+		<div class="column">
+			<div class="btnWrapper">
+				<input type="checkbox" class="funcBtns" id="stop" onclick="stop()" disabled="true">
+				<label for="stop" id="stopLabel">Stop</label>
+			</div>
+		</div>
+		<div class="x2column">
+			<div class ="sliderBox"> 
+				<input type="range" min="100" max="1000" value="550" class="slider" id="slider" oninput="createArray()">
+				<span class ="sliderText" id="sliderText">Change Array Size</span>
+			</div>
+		</div>
+		<div class="x2column">
+			<div class="speedGroup">
+				<input type="checkBox" class="speedButtons" value=10 id="slow" onclick="toggleSpeed(this.className, this.id)">
+				<input type="checkBox" checked="true"class="speedButtons" value=5 id="normal" onclick="toggleSpeed(this.className, this.id)">
+				<input type="checkBox" class="speedButtons" value=1 id="fastest" onclick="toggleSpeed(this.className, this.id)">
+			</div>
 		</div>
 	</div>
-	
+
+	<div class="row">
+		<div class="column">		
+			<div class="btnWrapper">
+				<input type="checkbox" class="sortBtn" id="iSort" onclick="main(this.id)">
+				<label for="iSort">Insertion Sort</label>
+			</div>
+		</div>
+		<div class="column">
+			<div class="btnWrapper">
+				<input type="checkbox" class="sortBtn" id="bSort" onclick="main(this.id)">
+				<label for="bSort">Bubble Sort</label>
+			</div>
+		</div>
+		<div class="column">
+			<div class="btnWrapper">
+				<input type="checkbox" class="sortBtn" id="qSort" onclick="main(this.id)">
+				<label for="qSort">Quick Sort</label>
+			</div>
+		</div>
+		<div class="column">
+			<div class="btnWrapper">
+				<input type="checkbox" class="sortBtn" id="mSort" onclick="main(this.id)">
+				<label for="mSort">Merge Sort</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+        <div class="column">		
+			<div class="btnWrapper">
+				<input type="checkbox" class="sortBtn" id="cSort" onclick="main(this.id)">
+				<label for="cSort">Cocktail-Shaker Sort</label>
+			</div>
+		</div>
+        <div class="column">
+			<div class="btnWrapper">
+				<input type="checkbox" class="sortBtn" id="sSort" onclick="main(this.id)">
+				<label for="sSort">Selection Sort</label>
+			</div>
+		</div>
+        <div class="column">
+			<div class="btnWrapper">
+				<input type="checkbox" class="sortBtn" id="hSort" onclick="main(this.id)">
+				<label for="hSort">Heap Sort</label>
+			</div>
+		</div>
+        <div class="column">
+			<div class="btnWrapper">
+				<input type="checkbox" class="sortBtn" id="rSort" onclick="main(this.id)">
+				<label for="rSort">Radix Sort</label>
+			</div>
+		</div>
+	</div>
+
 	<div class="clock">
 		<div class="time" id="current"><span id="min">00</span>:<span id="sec">00</span>:<span id="msec">00</span></div>
 		<div class="time" id="last">00:00:00</div>
@@ -61,15 +136,6 @@
 		</div>
 	</div>
 
-	<div class="buttonContainer" id="btnCon2">
-		<button class ="button" id="reload" onclick="reloadArray()" disabled="true">Reset</button>
-		<button class ="button" id="stop" onclick="pause(this.id)" disabled="true">Stop</button>
-		<button class ="button" id="iSort" onclick="main(this.id)">Insertion Sort</button>
-		<button class ="button" id="bSort" onclick="main(this.id)">Bubble Sort</button>
-		<button class ="button" id="qSort" onclick="main(this.id)">Quick Sort</button>
-		<button class ="button" id="mSort" onclick="main(this.id)">Merge Sort</button>
-	</div>
-	
 	<div class="arrayContainer" id="arrayContainer"></div>	
 
 </body>
