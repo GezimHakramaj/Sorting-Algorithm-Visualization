@@ -36,6 +36,10 @@
 	background: orange;
 }
 
-.slider:disabled, .slider:disabled + span{
-	display: none;
+.slider:disabled + span{
+	color: gray;
+}
+
+.slider:disabled::-webkit-slider-thumb{
+	background: gray;
 }

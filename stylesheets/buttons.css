@@ -27,11 +27,11 @@ label{
 	display: none;
 }
 
-.sortBtn, .funcBtns:hover:enabled + label{
+.sortBtn:hover:enabled + label, .funcBtns:hover:enabled + label{
 	color: orange;
 }
 
-.sortBtn, .funcBtns:checked:enabled + label, .sortBtn:checked:disabled + label{
+.sortBtn:disabled:checked + label{
 	color: orange;
 	box-shadow:	inset -2px -3px 5px rgba(192, 192, 192, 0.2),
 				inset 2px 5px 10px rgba(0, 0, 0, .5);
@@ -40,7 +40,7 @@ label{
 	transform: scale(0.98);
 }
 
-.sortBtn, .funcBtns:disabled + label{
+.sortBtn:disabled + label, .funcBtns:disabled + label{
 	color: gray;
 }
 

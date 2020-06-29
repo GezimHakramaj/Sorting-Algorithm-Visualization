@@ -70,7 +70,7 @@ class ArrayList extends Array{ // Creating an ArrayList object to contain Array'
 		}
 	}
 
-	async setPivot(index, color){
+	async setPivot(index, color){ // Helper method to set a pivot of desired color, await and then reset to white.
 		this[index].setBarColor(color);
 		await sleep(getSpeed());
 		while(paused) await sleep(getSpeed());

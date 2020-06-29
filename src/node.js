@@ -13,7 +13,7 @@ class Node{ // Node object will store a value, a reference to the div element, a
 		this.value = 500
 		500/500*0.01 will be 100% which will be the last bar in the visualization being 100% height since it is the largest element. This scales for every size.
 	*/
-	setBarHeight(){
+	setBarHeight(){ // Helper to set the height of the bar.
 		this.bar.style.height = ((this.value)/(arr.size()*0.01))+"%";
 	}
 
@@ -21,7 +21,11 @@ class Node{ // Node object will store a value, a reference to the div element, a
 		This method changes nodes i and j's color to blue meaning they are being compared and then we will call setSorted to check if the 
 		node is sorted. Changing it's color back to white for not sorted or orange for sorted.
     */
-	setBarColor(color){
+	setBarColor(color){ // Helper to set the color of the bar.
 		this.bar.style.backgroundColor = color;
+	}
+
+	getNumAtDigit(place){ // Helper to return the int (digit) at the desired place.
+		return Math.floor(this.value * Math.pow(0.1, place-1) % 10); // Works only for radixSort in conjuction with place parameter.
 	}
 }

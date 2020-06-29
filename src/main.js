@@ -12,27 +12,28 @@ var arr = new ArrayList(false); // Global array used to perform sorting algorith
 */
 async function main(id){ // Main function which executes for each sorting algorithm using the buttons id to distinguish between which algo to execute.
 	if(arr.sorted) createArray();
-	toggleButtons(true);
-	toggleText(true);
-	toggleTime();
-	updateTime();
+	toggleButtons(true); // Toggle buttons
+	toggleText(true); // Toggle text
+	toggleTime(); // Start timer 
+	updateTime(); // Update the timer
 	// Depending on which algo executes we await until its finished to proceed with the rest of the function calls.
 	if(id == "iSort") await insertionSort(arr); 
 	else if(id == "bSort") await bubbleSort(arr); 
 	else if(id == "qSort") await quickSort(arr, 0, arr.size()-1); 
 	else if(id == "mSort") await mergeSort(arr, 0, arr.size()-1);
-	else if(id == "cSort") await cocktailSort(arr); 
+	else if(id == "csSort") await cocktailSort(arr); 
 	else if(id == "sSort") await selectionSort(arr); 
-	else if(id == "hSort") await heapSort(arr); 
+	else if(id == "coSort") await countingSort(arr); 
 	else if(id == "rSort") await radixSort(arr); 
-	toggleText(false);
-	await arr.setSorted();
-	toggleButtons(false);
-	if(reload){
-		document.getElementById("sorted").style.display = "none";
-		createArray();
-		resetReload();
+	toggleText(false); // Retoggle text
+	await arr.setSorted(); // Await displaying the array is sorted
+	toggleButtons(false); // Retoggle buttons
+	if(reload){ // If user selected reset 
+		document.getElementById("sorted").style.display = "none"; // Hide text
+		createArray(); // Regenerate an array
+		resetReload(); // Reset reload bool.
 	}
+	//console.log(arr);
 }
 
 function createArray(){ // Function to create an array.

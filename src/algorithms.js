@@ -47,14 +47,13 @@ async function partition(arr, start, end){
 	while(paused) await sleep(1); // Awaiting until pause button is reset.
 	for(var i = start; i < end; i++){ // Loop through array.
 		if(arr[i].value < pivotValue){ // If arr[i] < pivotValue.
-			arr[pivotIndex].setBarColor("#AD3939");
-			await sleep(1);
-			await arr.barSwap(i, pivotIndex); // Swap i and pivotIndex indicies.
+			await arr.setPivot(pivotIndex, "#AD3939");
+			arr.barSwap(i, pivotIndex); // Swap i and pivotIndex indicies.
 			pivotIndex++; // Increase pivot index.
 			if(reload) return; // If user selects reset, the function exits with return.
 		}
 	}
-	await arr.barSwap(pivotIndex, end); // When done looping swap end and pivot.
+	arr.barSwap(pivotIndex, end); // When done looping swap end and pivot.
 	return pivotIndex // Return pivot index.
 }
 
@@ -113,6 +112,7 @@ async function merge(array, start, mid, end){
 	}
 }
 
+// Cocktail-Shaker Sort
 async function cocktailSort(arr){
 	let swap = true; // Bool flag.
 
@@ -138,22 +138,84 @@ async function cocktailSort(arr){
 	}
 }
 
+// Selection Sort
 async function selectionSort(arr){
-	for(var i = 0; i < arr.size()-1; i++){
-		var min = i;
-		for(var j = 1 + i; j < arr.size(); j++){
-				if(arr[j].value < arr[min].value) min = j;
-				arr.setPivot(min, "#7ed977");
+	for(var i = 0; i < arr.size()-1; i++){ // Initial loop.
+		if(reload) return; // If user selects reset during coloring the sorted array return prematurely.
+		var min = i; // Setting min value to i.
+		for(var j = 1 + i; j < arr.size(); j++){ // Looping through array for min value.
+				if(arr[j].value < arr[min].value) min = j; // Swapping min value.
+				arr.setPivot(min, "#00ba32"); // Highlighting min value.
+				if(reload) return; // If user selects reset during coloring the sorted array return prematurely.
 			}
-		await arr.setPivot(i, "#AD3939");
-		await arr.barSwap(i, min);
+		await arr.setPivot(i, "#AD3939"); // Highlighting where we are in the array at the moment.
+		await arr.barSwap(i, min); // Awaiting the swapping of bars.
 	}
 }
 
-async function heapSort(arr){
-	console.log("test");
+// Counting Sort
+async function countingSort(arr){
+	var temp = []; // Initalize temp array.
+	var j = 0; // Counter variable.
+
+	for(let i = 1; i <= arr.size(); i++) temp[i] = 0; // Initializing temp array to store 0 for arr.size().
+
+	for(let i = 0; i < arr.size(); i++) temp[arr[i].value] +=1; // Counting how many times we see a specific value and incrementing temp index of that value by 1. (essentially counting how many times ex: 4 appears in the original array).
+
+	/*
+		This third forloop goes over the temp array which stores how many times weve counted i in the original array, if temp[i] > 0 then arr[j]=i. We then increment j and decrement the count
+		of temp[i]. If temp[i] is still > 0 that means we have multiple values of i in our original array and then put them next to eachother in the sorted array.
+	*/
+	for(let i = 0; i <= arr.size(); i++){
+		while(temp[i] > 0){
+			if(reload) return; // If user selects reset during coloring the sorted array return prematurely.
+			await arr.setPivot(j, "#AD3939"); // Awaiting setting a pivot to "count" the array
+			arr[j++].value = i; // Changing values to sorted order.
+			temp[i]--; // Decrementing the counter
+		}
+	}
+
+	for(let i = 0; i < arr.size(); i++){
+		if(reload) return; // If user selects reset during coloring the sorted array return prematurely.
+		await sleep(getSpeed()); // Await sleep.
+		await arr.setPivot(i, "#00ba32"); // Highlighting min value.
+		arr[i].setBarHeight(); // Final for loop which will update the bars heights respectively.
+	} 
 }
 
+// Radix Sort
 async function radixSort(arr){
-	console.log("test");
+	var max = getDigits(arr.size()); // Variable for the num of digits our max number has.
+	var place = 1; // Variable for which digit we are at.
+
+	while(place <= max){
+		let index = 0; // Variable to keep track of where we are in our original array despite how many bucket arrays we loop through
+		let buckets = Array.from({length:10}, ()=> []); // Create a variable buckets with 10 arrays to store values we will compare by their digits.
+		for(let i = 0; i < arr.size(); i++){ 
+			buckets[arr[i].getNumAtDigit(place)].push(arr[i].value) // Calling a helper function in node.js that gets the digit represented by place and returns it.
+			await arr.setPivot(i, "#AD3939"); // Setting each bar to red to display iterating through the array.
+			if(reload) return; // If user selects reset during coloring the sorted array return prematurely.
+		}
+		for(let j = 0; j < buckets.length; j++){ // Loop for each bucket array.
+			let counter = 0; // Counter variable to keep place in each bucket array.
+			while(counter < buckets[j].length) arr[index++].value = buckets[j][counter++]; // Looping through the buckets setting the values in our original array with index variable declared above in while loop.
+			if(reload) return; // If user selects reset during coloring the sorted array return prematurely.
+		}
+		for(let k = 0; k < arr.size(); k++){ // Loop to show where we are in the array and change the bar's heights.
+			await arr.setPivot(k, "#00ba32"); // Awaiting setting pivot value.
+			arr[k].setBarHeight(); // Setting the bars heights.
+			if(reload) return; // If user selects reset during coloring the sorted array return prematurely.
+		}
+		place++; // Incrementing place.
+	}
 }
+
+function getDigits(num){ // Helper for radixSort to find the digits of the max in array.
+	let i = 0;
+	while(num >= 1){
+		num *= 0.1;
+		i++;
+	}
+	return i;
+}
+
